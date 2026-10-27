@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  FIAP Fase 5 & Fase 7 - Arquitetura AWS FarmTech Solutions (EC2 API/ML, S3 Data Lake,
+  IoT Core Telemetry, SNS Alertas Fazendeiros e Security Groups de Menor Privilegio).
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: farmtech-prod
+  AlertEmail:
+    Type: String
+    Default: operacoes@farmtech.agro.br
+
+Resources:
+  FarmTechDataLakeBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${EnvironmentName}-datalake-sensores"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+  FarmTechAlertsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub "${EnvironmentName}-alertas-lavoura"
+      DisplayName: "FarmTech Alertas Agricolas"
+
+  FarmTechEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref FarmTechAlertsTopic
+      Protocol: email
+      Endpoint: !Ref AlertEmail
+
+  FarmTechApiSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Permite apenas HTTPS (443) e Streamlit restrito (8501); bloqueia SSH irrestrito"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8501
+          ToPort: 8501
+          CidrIp: 0.0.0.0/0
+
+Outputs:
+  S3BucketName:
+    Description: Bucket S3 criptografado para leituras IoT e imagens YOLO
+    Value: !Ref FarmTechDataLakeBucket
+  SNSTopicArn:
+    Description: ARN do Topico SNS para disparo de alertas na Fase 7
+    Value: !Ref FarmTechAlertsTopic

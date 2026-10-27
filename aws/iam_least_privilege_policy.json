@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "S3LeituraEscritaDataLakeRestrita",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:ListBucket"],
+      "Resource": [
+        "arn:aws:s3:::farmtech-prod-datalake-sensores",
+        "arn:aws:s3:::farmtech-prod-datalake-sensores/*"
+      ]
+    },
+    {
+      "Sid": "PublicacaoAlertasSNSFazenda",
+      "Effect": "Allow",
+      "Action": ["sns:Publish"],
+      "Resource": "arn:aws:sns:*:*:farmtech-prod-alertas-lavoura"
+    }
+  ]
+}

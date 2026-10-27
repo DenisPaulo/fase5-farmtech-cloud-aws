@@ -1,0 +1,53 @@
+{
+  "custos_aws": {
+    "itens": [
+      {
+        "servico": "EC2 t3.medium (730h + 50GB gp3)",
+        "us_east_1_virginia": 34.41,
+        "sa_east_1_sao_paulo": 54.12,
+        "economia_usd_mes": 19.71,
+        "diferenca_pct": 57.3
+      },
+      {
+        "servico": "RDS / DB t3.micro (20GB gp3)",
+        "us_east_1_virginia": 18.25,
+        "sa_east_1_sao_paulo": 29.8,
+        "economia_usd_mes": 11.55,
+        "diferenca_pct": 63.3
+      },
+      {
+        "servico": "Amazon S3 Standard (100 GB)",
+        "us_east_1_virginia": 2.3,
+        "sa_east_1_sao_paulo": 4.05,
+        "economia_usd_mes": 1.75,
+        "diferenca_pct": 76.1
+      },
+      {
+        "servico": "AWS IoT Core + SNS + Tráfego",
+        "us_east_1_virginia": 3.5,
+        "sa_east_1_sao_paulo": 5.2,
+        "economia_usd_mes": 1.7,
+        "diferenca_pct": 48.6
+      }
+    ],
+    "total_mensal_us_east_1_usd": 58.46,
+    "total_mensal_sa_east_1_usd": 93.17,
+    "total_anual_us_east_1_usd": 701.52,
+    "total_anual_sa_east_1_usd": 1118.04,
+    "total_mensal_us_east_1_brl": 298.15,
+    "total_mensal_sa_east_1_brl": 475.17,
+    "economia_mensal_usd": 34.71,
+    "economia_pct_us_vs_sa": 37.3,
+    "regiao_recomendada_custo": "us-east-1 (N. Virginia)",
+    "regiao_recomendada_lgpd_latencia": "sa-east-1 (São Paulo)"
+  },
+  "qualidade_iot": {
+    "total_leituras": 150,
+    "anomalias_reais": 6,
+    "anomalias_detectadas": 8,
+    "falhas_sensor_capturadas": 6,
+    "taxa_captura_falhas": 1.0
+  },
+  "arquitetura_png": "/workspace/fiap-fases/fase5-farmtech-cloud-aws/assets/arquitetura_aws_fase5.png",
+  "comparativo_png": "/workspace/fiap-fases/fase5-farmtech-cloud-aws/assets/comparativo_aws_fase5.png"
+}
